@@ -1,10 +1,9 @@
-# **Webonitor**  
+# 📬 WhatsDotLib
+
+
 [![Live Website](https://img.shields.io/badge/Live_Website-webonitor.xyz-blue)](https://whatsdot.xyz)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-
-
-# 📬 WhatsDotLib
 
 **WhatsDotLib** is a powerful and easy-to-use .NET library for automating WhatsApp messages using **WhatsApp Web** inside a **WinForms** application — with **zero cost** and **no third-party API**.
 

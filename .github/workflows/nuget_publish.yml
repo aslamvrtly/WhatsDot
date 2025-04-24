@@ -1,42 +1,40 @@
-name: Publish NuGet Package
+name: "Deploy to NuGet"
 
 on:
   push:
     tags:
-      - 'v*'  # Triggers only on version tag pushes
+    - 'v*'
 
 env:
   PROJECT_PATH: 'WhatsDotLib.csproj'
-  PACKAGE_OUTPUT_DIRECTORY: '${{ github.workspace }}/output'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
 jobs:
-  build:
-    runs-on: windows-latest
-
+  deploy:
+    name: 'Deploy'
+    runs-on: 'windows-latest'
     steps:
-      - uses: actions/checkout@v3
+    - name: 'Checkout'
+      uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
+    - name: 'Install dotnet'
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: Get the version from the tag
-        id: version
-        run: |
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $env:GITHUB_ENV
-        shell: pwsh
+    - name: 'Restore packages'
+      run: dotnet restore ${{ env.PROJECT_PATH }}
 
-      - name: Restore dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
+    - name: 'Build project'
+      run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
 
-      - name: Build
-        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
+    - name: 'Get Version'
+      id: version
+      uses: battila7/get-version-action@v2
 
-      - name: Pack NuGet package
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --no-build --output "${{ env.PACKAGE_OUTPUT_DIRECTORY }}" /p:PackageVersion=$env:VERSION
-        shell: pwsh
+    - name: 'Pack project'
+      run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
-      - name: Push to NuGet
-        run: dotnet nuget push "${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-        shell: pwsh
+    - name: 'Push package'
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}

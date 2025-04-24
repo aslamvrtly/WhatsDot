@@ -334,41 +334,6 @@ namespace WhatsDotLib
 
 
 
-        public async void resetWA()
-        {
-            if (MessageBox.Show("Do you really want to disconnect?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                await mainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
-                if (scanTimer != null)
-                {
-                    scanTimer.Stop();
-                    scanTimer.Dispose();
-                    scanTimer = null;
-                }
-
-                if (loadTimer != null)
-                {
-                    loadTimer.Stop();
-                    loadTimer.Dispose();
-                    loadTimer = null;
-                }
-
-                if (checkLogoutTimer != null)
-                {
-                    checkLogoutTimer.Stop();
-                    checkLogoutTimer.Dispose();
-                    checkLogoutTimer = null;
-                }
-                if (diconnectTimer != null)
-                {
-                    diconnectTimer.Stop();
-                    diconnectTimer.Dispose();
-                    diconnectTimer = null;
-                }
-                loadWhatsapp();
-            }
-        }
-
         public void logoutWhatsapp()
         {
             if (MessageBox.Show("Do you really want to disconnect?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -459,7 +424,7 @@ namespace WhatsDotLib
 
 
         }
-        public async void sendWhatsappMsg(string phoneNum, string message)
+        public async void sendMessage(string phoneNum, string message)
         {
             if (mainWebView.CoreWebView2 != null)
             {

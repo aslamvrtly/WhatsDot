@@ -29,7 +29,7 @@ jobs:
         run: dotnet build ./WhatsDotLib.csproj --configuration Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack ./WhatsDotLib.csproj --configuration Release --no-build --output ./nupkg /p:PackageVersion=$VERSION
+        run: dotnet pack ./WhatsDotLib.csproj --configuration Release --no-build --output ./nupkg /p:PackageVersion=$env:VERSION
 
       - name: Push to NuGet
         run: dotnet nuget push ./nupkg/WhatsDotLib.$VERSION.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

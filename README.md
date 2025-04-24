@@ -1,7 +1,7 @@
 # 📬 WhatsDotLib
 
 
-[![Live Website](https://img.shields.io/badge/Live_Website-webonitor.xyz-blue)](https://whatsdot.xyz)  
+[![Live Website](https://img.shields.io/badge/Live_Website-whatsdot.xyz-blue)](https://whatsdot.xyz)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 

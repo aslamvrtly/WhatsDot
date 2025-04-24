@@ -3,11 +3,11 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - 'v*'  # Runs on version tags like v1.0.2
+      - 'v*'  # Triggers only on version tag pushes
 
 env:
   PROJECT_PATH: 'WhatsDotLib.csproj'
-  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  PACKAGE_OUTPUT_DIRECTORY: '${{ github.workspace }}/output'
 
 jobs:
   build:
@@ -24,7 +24,8 @@ jobs:
       - name: Get the version from the tag
         id: version
         run: |
-          echo "VERSION=$(echo ${GITHUB_REF} | sed 's/refs\/tags\///')" >> $GITHUB_ENV
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $env:GITHUB_ENV
+        shell: pwsh
 
       - name: Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
@@ -33,7 +34,9 @@ jobs:
         run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --no-build --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }} /p:PackageVersion=$env:VERSION
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --no-build --output "${{ env.PACKAGE_OUTPUT_DIRECTORY }}" /p:PackageVersion=$env:VERSION
+        shell: pwsh
 
       - name: Push to NuGet
-        run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push "${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        shell: pwsh

@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'  # Runs on version tags like v1.0.2
 
+env:
+  PROJECT_PATH: 'WhatsDotLib.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+
 jobs:
   build:
     runs-on: windows-latest
@@ -23,13 +27,13 @@ jobs:
           echo "VERSION=$(echo ${GITHUB_REF} | sed 's/refs\/tags\///')" >> $GITHUB_ENV
 
       - name: Restore dependencies
-        run: dotnet restore ./WhatsDotLib.csproj
+        run: dotnet restore ${{ env.PROJECT_PATH }}
 
       - name: Build
-        run: dotnet build ./WhatsDotLib.csproj --configuration Release --no-restore
+        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack ./WhatsDotLib.csproj --configuration Release --no-build --output ./nupkg /p:PackageVersion=$env:VERSION
+        run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release --no-build --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }} /p:PackageVersion=$env:VERSION
 
       - name: Push to NuGet
-        run: dotnet nuget push ./nupkg/WhatsDotLib.$VERSION.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

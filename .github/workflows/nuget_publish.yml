@@ -2,8 +2,8 @@ name: "Deploy to NuGet"
 
 on:
   push:
-    tags:
-    - 'v*'
+    branches:
+      - main
 
 env:
   PROJECT_PATH: 'WhatsDotLib.csproj'
@@ -12,29 +12,31 @@ env:
 
 jobs:
   deploy:
+    if: contains(github.event.head_commit.message, 'release')
     name: 'Deploy'
     runs-on: 'windows-latest'
+    
     steps:
-    - name: 'Checkout'
-      uses: actions/checkout@v3
+      - name: 'Checkout'
+        uses: actions/checkout@v3
 
-    - name: 'Install dotnet'
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
+      - name: 'Install dotnet'
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: 'Restore packages'
-      run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: 'Restore packages'
+        run: dotnet restore ${{ env.PROJECT_PATH }}
 
-    - name: 'Build project'
-      run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+      - name: 'Build project'
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
 
-    - name: 'Get Version'
-      id: version
-      uses: battila7/get-version-action@v2
+      - name: 'Get Version'
+        id: version
+        uses: battila7/get-version-action@v2
 
-    - name: 'Pack project'
-      run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
+      - name: 'Pack project'
+        run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
-    - name: 'Push package'
-      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}
+      - name: 'Push package'
+        run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}

@@ -19,13 +19,11 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Asset 3@300x.png</PackageIcon>
   </PropertyGroup>
-  
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
   </ItemGroup>
-
 
   <ItemGroup>
     <None Update="Asset 3%40300x.png">

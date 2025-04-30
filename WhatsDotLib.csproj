@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-  <!-- Different frameworks -->
     <TargetFrameworks>net6.0-windows;net462</TargetFrameworks>
     <VersionPrefix>1.0.2</VersionPrefix>
     <UseWindowsForms>true</UseWindowsForms>
@@ -20,7 +19,6 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>Asset 3@300x.png</PackageIcon>
   </PropertyGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />

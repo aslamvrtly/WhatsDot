@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+  <!-- Different frameworks -->
     <TargetFrameworks>net6.0-windows;net462</TargetFrameworks>
     <VersionPrefix>1.0.2</VersionPrefix>
     <UseWindowsForms>true</UseWindowsForms>

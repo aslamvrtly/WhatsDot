@@ -32,10 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Asset 3%40300x.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
     <None Update="Logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

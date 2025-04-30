@@ -17,7 +17,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>Asset 3@300x.png</PackageIcon>
+    <PackageIcon>Logo.png</PackageIcon>
   </PropertyGroup>
 
   <!-- Force C# 8.0 for net462 -->
@@ -33,6 +33,10 @@
 
   <ItemGroup>
     <None Update="Asset 3%40300x.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

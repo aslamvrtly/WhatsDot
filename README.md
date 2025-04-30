@@ -30,7 +30,7 @@ Developed by **Muhammed Aslam** & **Shijas Hassain**
 
 ### Via .NET CLI:
 ```bash
-dotnet add package WhatsDotLib --version 1.0.0
+dotnet add package WhatsDotLib --version 1.0.3
 ```
 
 ### Or via NuGet Package Manager Console:

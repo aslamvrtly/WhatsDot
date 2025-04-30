@@ -2,8 +2,8 @@ name: "Deploy to NuGet"
 
 on:
   push:
-    branches:
-      - main
+    tags:
+    - 'v*'
 
 env:
   PROJECT_PATH: 'WhatsDotLib.csproj'
@@ -12,7 +12,6 @@ env:
 
 jobs:
   deploy:
-    if: contains(github.event.head_commit.message, 'release')
     name: 'Deploy'
     runs-on: 'windows-latest'
     

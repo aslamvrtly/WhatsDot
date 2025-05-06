@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows;net462</TargetFrameworks>
-    <VersionPrefix>1.0.3</VersionPrefix>
+    <VersionPrefix>1.0.5</VersionPrefix>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

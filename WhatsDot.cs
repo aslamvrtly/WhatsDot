@@ -21,6 +21,9 @@ namespace WhatsDotLib
         private string status = "waiting";
         private string oldHead = "";
         private WebView2 loaderWebView;
+        private int barcodeHeight = 0;
+        private int barcodeWidth = 0;
+
 
         private string loader = @"
                         <!DOCTYPE html>
@@ -144,8 +147,17 @@ namespace WhatsDotLib
                             string checkHead = @"document.querySelector('head').outerHTML";
                             oldHead = await mainWebView.CoreWebView2.ExecuteScriptAsync(checkHead);
 
-                            int barcodeHeight = mainWebView.Height - 25;
-                            int barcodeWidth = mainWebView.Width - 25;
+                            using (Graphics g = mainWebView.CreateGraphics())
+                            {
+                                float dpi = g.DpiY;
+
+                                float scalingFactor = dpi / 96f;
+
+                                barcodeHeight = (int)(mainWebView.Height / scalingFactor) - 25;
+                                barcodeWidth = (int)(mainWebView.Width / scalingFactor) - 25;
+                            }
+
+                          
 
                             string clickUse = @"
                         (function() {

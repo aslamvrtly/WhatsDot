@@ -1,0 +1,6 @@
+2025/05/09-19:57:44.281 47d4 Reusing MANIFEST D:\coding\whatsdot example\WDexample1\bin\Debug\WDexample1.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2025/05/09-19:57:44.308 47d4 Recovering log #17
+2025/05/09-19:57:44.314 47d4 Reusing old log D:\coding\whatsdot example\WDexample1\bin\Debug\WDexample1.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000017.log 
+2025/05/09-20:00:45.229 4858 Level-0 table #20: started
+2025/05/09-20:00:45.413 4858 Level-0 table #20: 27493 bytes OK
+2025/05/09-20:00:45.526 4858 Delete type=0 #17

@@ -61,6 +61,7 @@ namespace WhatsDotLib
                             </svg>
                         </body>
                         </html>
+
                         ";
 
         public WhatsDot(WebView2 userWebView)

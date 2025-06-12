@@ -302,6 +302,7 @@ namespace WhatsDotLib
                 string url = $"https://web.whatsapp.com";
                 await mainWebView.EnsureCoreWebView2Async(null);
                 mainWebView.CoreWebView2.Navigate(url);
+                status = "waiting";
                 mainWebView.Visible = false;
                 loaderWebView.Visible = true;
                 isRedirected = true;

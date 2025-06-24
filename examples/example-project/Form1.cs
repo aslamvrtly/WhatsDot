@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WhatsDotLib;
+using Timer = System.Windows.Forms.Timer;
 
 namespace WDexample1
 {

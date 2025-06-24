@@ -63,10 +63,12 @@ namespace WhatsDotLib
                         </html>
 
                         ";
+        public bool SuppressConnectionPopup { get; private set; }
 
         public WhatsDot(WebView2 userWebView)
         {
             mainWebView = userWebView ?? throw new ArgumentNullException(nameof(userWebView));
+            this.SuppressConnectionPopup = suppressConnectionPopup;
             loadWhatsapp();
         }
         public async void loadWhatsapp()
@@ -158,7 +160,7 @@ namespace WhatsDotLib
                                 barcodeWidth = (int)(mainWebView.Width / scalingFactor) - 25;
                             }
 
-                          
+
 
                             string clickUse = @"
                         (function() {
@@ -258,9 +260,20 @@ namespace WhatsDotLib
         public void connectWhatsapp()
         {
 
-            if (MessageBox.Show("Do you really want to connect?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Do you really want to connect?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    proceedConnection = true;
+                }
+            }
+            else
             {
+                proceedConnection = true;
+            }
 
+
+
+            if (proceedConnection)
+            {
                 mainWebView.Visible = true;
 
                 isRedirected = false;

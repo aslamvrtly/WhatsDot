@@ -65,7 +65,7 @@ namespace WhatsDotLib
                         ";
         public bool SuppressConnectionPopup { get; private set; }
 
-        public WhatsDot(WebView2 userWebView)
+        public WhatsDot(WebView2 userWebView, bool suppressConnectionPopup)
         {
             mainWebView = userWebView ?? throw new ArgumentNullException(nameof(userWebView));
             this.SuppressConnectionPopup = suppressConnectionPopup;
@@ -259,7 +259,8 @@ namespace WhatsDotLib
 
         public void connectWhatsapp()
         {
-
+            bool proceedConnection = false;
+            if (!SuppressConnectionPopup) { 
                 if (MessageBox.Show("Do you really want to connect?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     proceedConnection = true;

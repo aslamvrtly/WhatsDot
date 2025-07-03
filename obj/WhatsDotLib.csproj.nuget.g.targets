@@ -8,4 +8,7 @@
     <Import Project="$(NuGetPackageRoot)system.drawing.common\9.0.4\buildTransitive\netcoreapp2.0\System.Drawing.Common.targets" Condition="Exists('$(NuGetPackageRoot)system.drawing.common\9.0.4\buildTransitive\netcoreapp2.0\System.Drawing.Common.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.web.webview2\1.0.3179.45\buildTransitive\Microsoft.Web.WebView2.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.web.webview2\1.0.3179.45\buildTransitive\Microsoft.Web.WebView2.targets')" />
   </ImportGroup>
+  <ImportGroup Condition=" '$(TargetFramework)' == 'net8.0-windows' AND '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.web.webview2\1.0.3179.45\buildTransitive\Microsoft.Web.WebView2.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.web.webview2\1.0.3179.45\buildTransitive\Microsoft.Web.WebView2.targets')" />
+  </ImportGroup>
 </Project>

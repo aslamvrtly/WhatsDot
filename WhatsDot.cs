@@ -158,7 +158,7 @@ namespace WhatsDotLib
                                 barcodeWidth = (int)(mainWebView.Width / scalingFactor) - 25;
                             }
 
-                          
+
 
                             string clickUse = @"
                         (function() {
@@ -237,6 +237,14 @@ namespace WhatsDotLib
                     if (isLoggedIn)
                     {
                         status = "connected";
+                        string clickContinue = @"
+                            (function() {
+                                const btn = Array.from(document.querySelectorAll('button'))
+                                    .find(div => div.textContent.trim() === 'Continue');
+                                if (btn) btn.click();
+                            })();
+                        ";
+                        await mainWebView.CoreWebView2.ExecuteScriptAsync(clickContinue);
                         loaderWebView.Visible = false;
                         isCheck = false;
                         isBarcode = true;
@@ -304,8 +312,8 @@ namespace WhatsDotLib
                 await mainWebView.EnsureCoreWebView2Async(null);
                 mainWebView.CoreWebView2.Navigate(url);
                 status = "waiting";
-                mainWebView.Visible = false;
-                loaderWebView.Visible = true;
+                mainWebView.Visible = false; 
+                loaderWebView.Visible = true; 
                 isRedirected = true;
             }
 
@@ -328,8 +336,8 @@ namespace WhatsDotLib
             bool isScan1 = bool.Parse(loginScan);
             if (isScan1 == true)
             {
-                mainWebView.Visible = false;
-                loaderWebView.Visible = true;
+                mainWebView.Visible = false; 
+                loaderWebView.Visible = true; 
                 status = "waiting";
             }
 
@@ -338,7 +346,15 @@ namespace WhatsDotLib
                 scanTimer.Stop();
                 scanTimer.Dispose();
                 scanTimer = null;
-                mainWebView.Visible = false;
+                string clickContinue = @"
+                    (function() {
+                        const btn = Array.from(document.querySelectorAll('button'))
+                            .find(div => div.textContent.trim() === 'Continue');
+                        if (btn) btn.click();
+                    })();
+                ";
+                await mainWebView.CoreWebView2.ExecuteScriptAsync(clickContinue);
+                mainWebView.Visible = false; 
                 loaderWebView.Visible = false;
                 isLoggedIn = true;
                 status = "connected";
@@ -352,7 +368,7 @@ namespace WhatsDotLib
         {
             if (MessageBox.Show("Do you really want to disconnect?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                loaderWebView.Visible = true;
+                loaderWebView.Visible = true; 
                 diconnectTimer = new Timer();
                 diconnectTimer.Interval = 1000;
                 diconnectTimer.Tick += (sender1, args1) => checkLogout();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Web.WebView2.WinForms;
 using System;
+using System.Drawing.Text;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -102,12 +103,16 @@ namespace WhatsDotLib
             mainWebView.Source = new Uri(baseURL);
         }
 
-        public async System.Threading.Tasks.Task<string> checkLogin()
+        public async System.Threading.Tasks.Task<string> checkLogin(bool onlyCheck=false)
         {
-
+            bool loaderVisibility=true; 
+            if (onlyCheck)
+            {
+                loaderVisibility = false;
+            }
             if (mainWebView.CoreWebView2 != null && isCheck)
             {
-                loaderWebView.Visible = true;
+                loaderWebView.Visible = loaderVisibility;
 
                 string scriptScan = @"(function() {
                                             const divs = document.querySelectorAll('div');
@@ -177,7 +182,7 @@ namespace WhatsDotLib
                             isCheck = false;
                             isBarcode = true;
                             status = "disconnected";
-                            loaderWebView.Visible = false;
+                            loaderWebView.Visible = loaderVisibility;
                         }
                     }
                 }
@@ -454,7 +459,7 @@ namespace WhatsDotLib
 
 
         }
-        public async void sendMessage(string phoneNum, string message)
+        public async System.Threading.Tasks.Task<bool> sendMessage(string phoneNum, string message)
         {
             if (mainWebView.CoreWebView2 != null)
             {
@@ -492,6 +497,7 @@ namespace WhatsDotLib
 
                 varTimer.Start();
 
+                var isTaskCompleted = new TaskCompletionSource<bool>();
 
                 Timer sendTimer = new Timer { Interval = 1000 };
                 sendTimer.Tick += async (sender2, e2) =>
@@ -529,14 +535,19 @@ namespace WhatsDotLib
                     if (status == "true")
                     {
                         sendTimer.Stop();
-
+                        isTaskCompleted.SetResult(true);
                     }
                 };
 
                 sendTimer.Start();
 
+                return await isTaskCompleted.Task;
 
 
+            }
+            else
+            {
+                return false;
             }
 
         }

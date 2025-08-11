@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A WhatsApp automation library using WebView2 for WinForms.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.6.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.6+13ecaf0d52a1781fb687d30041387d76d616c6cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.6")]
 [assembly: System.Reflection.AssemblyProductAttribute("WhatsDot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WhatsDotLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.6.0")]

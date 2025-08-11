@@ -113,72 +113,36 @@ namespace WhatsDotLib
             if (mainWebView.CoreWebView2 != null && isCheck)
             {
                 loaderWebView.Visible = loaderVisibility;
+                string javaScript = "(function() {\r\n                                            const divs = document.querySelectorAll('div');\r\n                                            for (let div of divs) {\r\n                                                if (div.textContent.includes('Loading your chats')) {\r\n                                                    return true;\r\n                                                }\r\n                                            }\r\n                                            return false;\r\n                                        })();\r\n                                    ";
 
-                string scriptScan = @"(function() {
-                                            const divs = document.querySelectorAll('div');
-                                            for (let div of divs) {
-                                                if (div.textContent.includes('Loading your chats')) {
-                                                    return true;
-                                                }
-                                            }
-                                            return false;
-                                        })();
-                                    ";
-                string loginScan = await mainWebView.CoreWebView2.ExecuteScriptAsync(scriptScan);
-                bool isScan = bool.Parse(loginScan);
-
-                if (isScan == true)
+                if (bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript)))
                 {
                     status = "waiting";
-
                 }
 
-                string waStartup = @"(document.querySelector(""#wa_web_initial_startup"") !== null)";
-                string waStartupStatus = await mainWebView.CoreWebView2.ExecuteScriptAsync(waStartup);
-                bool startupStatus = bool.Parse(waStartupStatus);
-
-                if (!startupStatus)
+                string javaScript2 = "(document.querySelector(\"#wa_web_initial_startup\") !== null)";
+                if (!bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript2)))
                 {
-                    string scriptLogin = @"(document.querySelector(""#link-device-phone-number-code-screen-instructions"") !== null)";
-                    string loginStatus = await mainWebView.CoreWebView2.ExecuteScriptAsync(scriptLogin);
-                    isLoggedIn = !bool.Parse(loginStatus);
+                    string javaScript3 = "(function() {\r\n                                            const divs = document.querySelectorAll('div');\r\n                                            for (let div of divs) {\r\n                                                if (div.textContent.includes('Scan the QR code to confirm') || div.textContent.includes('Scan QR code to confirm') || div.textContent.includes('Scan the QR') || div.textContent.includes('Scan QR')) {\r\n                                                    return true;\r\n                                                }\r\n                                            }\r\n                                            return false;\r\n                                        })();\r\n                                    ";
 
-                    if (isLoggedIn == false)
+                    isLoggedIn = !bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript3));
+
+                    if (!isLoggedIn)
                     {
-                        string checkUse = @"(!document.querySelector('canvas') == false)";
-                        string useStatus = await mainWebView.CoreWebView2.ExecuteScriptAsync(checkUse);
-
-                        if (useStatus == "true")
+                        string javaScript4 = "(document.querySelector('canvas') !== null)";
+                        if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript4) == "true")
                         {
-                            string checkHead = @"document.querySelector('head').outerHTML";
-                            oldHead = await mainWebView.CoreWebView2.ExecuteScriptAsync(checkHead);
-
-                            using (Graphics g = mainWebView.CreateGraphics())
+                            string javaScript5 = "document.querySelector('head').outerHTML";
+                            oldHead = await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript5);
+                            using (Graphics graphics = mainWebView.CreateGraphics())
                             {
-                                float dpi = g.DpiY;
-
-                                float scalingFactor = dpi / 96f;
-
-                                barcodeHeight = (int)(mainWebView.Height / scalingFactor) - 25;
-                                barcodeWidth = (int)(mainWebView.Width / scalingFactor) - 25;
+                                float num = graphics.DpiY / 96f;
+                                barcodeHeight = (int)((float)mainWebView.Height / num) - 25;
+                                barcodeWidth = (int)((float)mainWebView.Width / num) - 25;
                             }
 
-
-
-                            string clickUse = @"
-                        (function() {
-                            document.querySelector('body').append(document.querySelector('canvas'));
-                            document.querySelector('#app').remove();
-                            document.querySelector('body').style.display = 'flex';
-                            document.querySelector('body').style.alignItems = 'center';
-                            document.querySelector('body').style.justifyContent = 'center';
-                            document.querySelector('canvas').style.width = '" + Convert.ToString(barcodeWidth) + @"px';
-                            document.querySelector('canvas').style.height = '" + Convert.ToString(barcodeHeight) + @"px';
-                            document.querySelector('body').style.background = '#fff';
-                        })();
-                    ";
-
-                            await mainWebView.CoreWebView2.ExecuteScriptAsync(clickUse);
+                            string javaScript6 = "\r\n                        (function() {\r\n                            document.querySelector('body').append(document.querySelector('canvas'));\r\n                            document.querySelector('#app').remove();\r\n                            document.querySelector('body').style.display = 'flex';\r\n                            document.querySelector('body').style.alignItems = 'center';\r\n                            document.querySelector('body').style.justifyContent = 'center';\r\n                            document.querySelector('canvas').style.width = '" + Convert.ToString(barcodeWidth) + "px';\r\n                            document.querySelector('canvas').style.height = '" + Convert.ToString(barcodeHeight) + "px';\r\n                            document.querySelector('body').style.background = '#fff';\r\n                        })();\r\n                    ";
+                            await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript6);
                             isCheck = false;
                             isBarcode = true;
                             status = "disconnected";

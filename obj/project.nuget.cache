@@ -1,16 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "UJzTIsd2eqg=",
+  "dgSpecHash": "XIrHj5r2aYlHSgGs4xe12gluRttIzXN2OR0G6UkqMt3n7BmZzqqHTeNp0B8LNE8lNl0gU41fy7BiHDNjqyqlxQ==",
   "success": true,
-  "projectFilePath": "D:\\coding\\WhatsDotLib\\WhatsDotLib.csproj",
+  "projectFilePath": "D:\\Aspire\\Our Products\\WhatsDot\\WhatsDotLib.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Shijas\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
-    "C:\\Users\\Shijas\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net462\\1.0.3\\microsoft.netframework.referenceassemblies.net462.1.0.3.nupkg.sha512",
-    "C:\\Users\\Shijas\\.nuget\\packages\\microsoft.web.webview2\\1.0.3179.45\\microsoft.web.webview2.1.0.3179.45.nupkg.sha512",
-    "C:\\Users\\Shijas\\.nuget\\packages\\system.drawing.common\\9.0.4\\system.drawing.common.9.0.4.nupkg.sha512",
-    "C:\\Users\\Shijas\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\Shijas\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\Shijas\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
+    "C:\\Users\\TrickyDot\\.nuget\\packages\\microsoft.web.webview2\\1.0.3179.45\\microsoft.web.webview2.1.0.3179.45.nupkg.sha512",
+    "C:\\Users\\TrickyDot\\.nuget\\packages\\system.drawing.common\\9.0.4\\system.drawing.common.9.0.4.nupkg.sha512"
   ],
   "logs": []
 }

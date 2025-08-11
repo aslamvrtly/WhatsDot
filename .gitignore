@@ -1,0 +1,82 @@
+# Build results
+bin/
+obj/
+out/
+
+# Visual Studio cache files
+.vs/
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.generated.cs
+*.g.cs
+*.g.i.cs
+
+# Rider IDE files
+.idea/
+
+# NuGet packages
+*.nupkg
+packages/
+# Uncomment if using NuGet package restore
+# !packages/**/*.nupkg
+
+# DotCover files
+*.dotCover
+
+# ReSharper files
+_ReSharper*/
+*.ReSharper
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+
+# Logs
+*.log
+
+# Others
+*.pidb
+*.svclog
+*.userprefs
+
+# ASP.NET temporary files
+Temporary ASP.NET Files/
+
+# Web publish
+wwwroot/
+
+# Resharper cache
+_ReSharper.Caches/
+
+# Node.js dependencies (if applicable)
+node_modules/
+
+# Azure Functions
+.local.settings.json
+
+# JetBrains Rider
+.idea/
+
+# Rider caches
+.idea/
+
+# Dotnet watch files
+dotnet-watch.json

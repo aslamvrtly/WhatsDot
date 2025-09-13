@@ -8,6 +8,7 @@ using Timer = System.Windows.Forms.Timer;
 namespace WhatsDotLib
 {
 
+
     public class WhatsDot
     {
         private string baseURL = "https://web.whatsapp.com";
@@ -81,21 +82,15 @@ namespace WhatsDotLib
 
         public async Task<string> checkLogin(bool onlyCheck = false)
         {
+
             bool loaderVisibility = true;
             if (onlyCheck)
             {
                 loaderVisibility = false;
             }
 
-            if (mainWebView.CoreWebView2 != null && isCheck)
+            if (mainWebView.CoreWebView2 != null)
             {
-                loaderWebView.Visible = loaderVisibility;
-                string javaScript = "(function() {\r\n                                            const divs = document.querySelectorAll('div');\r\n                                            for (let div of divs) {\r\n                                                if (div.textContent.includes('Loading your chats')) {\r\n                                                    return true;\r\n                                                }\r\n                                            }\r\n                                            return false;\r\n                                        })();\r\n                                    ";
-                if (bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript)))
-                {
-                    status = "waiting";
-                }
-
                 string javaScriptUseHere = "Array.from(document.querySelectorAll('div')).some(div => div.textContent.trim() === 'Use here');";
                 if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHere) == "true")
                 {
@@ -103,36 +98,55 @@ namespace WhatsDotLib
                     await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHereBtn);
                 }
 
-                string javaScript2 = "(document.querySelector(\"#wa_web_initial_startup\") !== null)";
-                if (!bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript2)))
+                string javaScriptSpanUseHere = "Array.from(document.querySelectorAll('span')).some(span => span.textContent.trim() === 'Use here');";
+                if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanUseHere) == "true")
                 {
-                    string javaScript3 = "(function() {\r\n                                            const divs = document.querySelectorAll('div');\r\n                                            for (let div of divs) {\r\n                                                if (div.textContent.includes('Scan the QR code to confirm') || div.textContent.includes('Scan QR code to confirm') || div.textContent.includes('Scan the QR') || div.textContent.includes('Scan QR')) {\r\n                                                    return true;\r\n                                                }\r\n                                            }\r\n                                            return false;\r\n                                        })();\r\n                                    ";
-                    isLoggedIn = !bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript3));
-                    if (!isLoggedIn)
-                    {
-                        string javaScript4 = "(document.querySelector('canvas') !== null)";
-                        if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript4) == "true")
-                        {
-                            string javaScript5 = "document.querySelector('head').outerHTML";
-                            oldHead = await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript5);
-                            using (Graphics graphics = mainWebView.CreateGraphics())
-                            {
-                                float num = graphics.DpiY / 96f;
-                                barcodeHeight = (int)((float)mainWebView.Height / num) - 25;
-                                barcodeWidth = (int)((float)mainWebView.Width / num) - 25;
-                            }
-
-                            string javaScript6 = "\r\n                        (function() {\r\n                            document.querySelector('body').append(document.querySelector('canvas'));\r\n                            document.querySelector('#app').remove();\r\n                            document.querySelector('body').style.display = 'flex';\r\n                            document.querySelector('body').style.alignItems = 'center';\r\n                            document.querySelector('body').style.justifyContent = 'center';\r\n                            document.querySelector('canvas').style.width = '" + Convert.ToString(barcodeWidth) + "px';\r\n                            document.querySelector('canvas').style.height = '" + Convert.ToString(barcodeHeight) + "px';\r\n                            document.querySelector('body').style.background = '#fff';\r\n                        })();\r\n                    ";
-                            await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript6);
-                            isCheck = false;
-                            isBarcode = true;
-                            status = "disconnected";
-                            loaderWebView.Visible = loaderVisibility;
-                        }
-                    }
+                    string javaScriptSpanUseHereBtn = "Array.from(document.querySelectorAll('span')).find(span => span.textContent.trim() === 'Use here').closest(\"div\").click();";
+                    await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanUseHereBtn);
                 }
 
-                actionControl();
+                if (isCheck)
+                {
+
+                    loaderWebView.Visible = loaderVisibility;
+                    string javaScript = "(function() {\r\n                                            const divs = document.querySelectorAll('div');\r\n                                            for (let div of divs) {\r\n                                                if (div.textContent.includes('Loading your chats')) {\r\n                                                    return true;\r\n                                                }\r\n                                            }\r\n                                            return false;\r\n                                        })();\r\n                                    ";
+                    if (bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript)))
+                    {
+                        status = "waiting";
+                    }
+
+                    string javaScript2 = "(document.querySelector(\"#wa_web_initial_startup\") !== null)";
+                    if (!bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript2)))
+                    {
+
+                        string javaScript3 = "(function() {\r\n                                            const divs = document.querySelectorAll('div');\r\n                                            for (let div of divs) {\r\n                                                if (div.textContent.includes('Scan the QR code to confirm') || div.textContent.includes('Scan QR code to confirm') || div.textContent.includes('Scan the QR') || div.textContent.includes('Scan QR')) {\r\n                                                    return true;\r\n                                                }\r\n                                            }\r\n                                            return false;\r\n                                        })();\r\n                                    ";
+                        isLoggedIn = !bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript3));
+                        if (!isLoggedIn)
+                        {
+                            string javaScript4 = "(document.querySelector('canvas') !== null)";
+                            if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript4) == "true")
+                            {
+                                string javaScript5 = "document.querySelector('head').outerHTML";
+                                oldHead = await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript5);
+                                using (Graphics graphics = mainWebView.CreateGraphics())
+                                {
+                                    float num = graphics.DpiY / 96f;
+                                    barcodeHeight = (int)((float)mainWebView.Height / num) - 25;
+                                    barcodeWidth = (int)((float)mainWebView.Width / num) - 25;
+                                }
+
+                                string javaScript6 = "\r\n                        (function() {\r\n                            document.querySelector('body').append(document.querySelector('canvas'));\r\n                            document.querySelector('#app').remove();\r\n                            document.querySelector('body').style.display = 'flex';\r\n                            document.querySelector('body').style.alignItems = 'center';\r\n                            document.querySelector('body').style.justifyContent = 'center';\r\n                            document.querySelector('canvas').style.width = '" + Convert.ToString(barcodeWidth) + "px';\r\n                            document.querySelector('canvas').style.height = '" + Convert.ToString(barcodeHeight) + "px';\r\n                            document.querySelector('body').style.background = '#fff';\r\n                        })();\r\n                    ";
+                                await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript6);
+                                isCheck = false;
+                                isBarcode = true;
+                                status = "disconnected";
+                                loaderWebView.Visible = loaderVisibility;
+                            }
+                        }
+                    }
+
+                    actionControl();
+                }
             }
 
             return status;
@@ -140,7 +154,6 @@ namespace WhatsDotLib
 
         private async void actionControl()
         {
-            Console.WriteLine(isLoggedIn);
             if (isLoggedIn)
             {
                 if (checkLogoutTimer == null)
@@ -233,6 +246,13 @@ namespace WhatsDotLib
             {
                 string javaScript2 = "Array.from(document.querySelectorAll('div')).find(div => div.textContent.trim() === 'Use here').closest(\"button\").click();";
                 await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript2);
+            }
+
+            string javaScriptSpanUseHere = "Array.from(document.querySelectorAll('span')).some(span => span.textContent.trim() === 'Use here');";
+            if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanUseHere) == "true")
+            {
+                string javaScriptSpanUseHereBtn = "Array.from(document.querySelectorAll('span')).find(span => span.textContent.trim() === 'Use here').closest(\"div\").click();";
+                await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanUseHereBtn);
             }
 
             string javaScript3 = "document.querySelector('head').outerHTML;";

@@ -96,6 +96,13 @@ namespace WhatsDotLib
                     status = "waiting";
                 }
 
+                string javaScriptUseHere = "Array.from(document.querySelectorAll('div')).some(div => div.textContent.trim() === 'Use here');";
+                if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHere) == "true")
+                {
+                    string javaScriptUseHereBtn = "Array.from(document.querySelectorAll('div')).find(div => div.textContent.trim() === 'Use here').closest(\"button\").click();";
+                    await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHereBtn);
+                }
+
                 string javaScript2 = "(document.querySelector(\"#wa_web_initial_startup\") !== null)";
                 if (!bool.Parse(await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScript2)))
                 {

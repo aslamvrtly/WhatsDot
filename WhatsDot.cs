@@ -94,6 +94,7 @@ namespace WhatsDotLib
                 string javaScriptUseHere = "Array.from(document.querySelectorAll('div')).some(div => div.textContent.trim() === 'Use here');";
                 if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHere) == "true")
                 {
+                    status = "waiting";
                     string javaScriptUseHereBtn = "Array.from(document.querySelectorAll('div')).find(div => div.textContent.trim() === 'Use here').closest(\"button\").click();";
                     await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHereBtn);
                 }
@@ -101,6 +102,7 @@ namespace WhatsDotLib
                 string javaScriptSpanUseHere = "Array.from(document.querySelectorAll('span')).some(span => span.textContent.trim() === 'Use here');";
                 if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanUseHere) == "true")
                 {
+                    status = "waiting";
                     string javaScriptSpanUseHereBtn = "Array.from(document.querySelectorAll('span')).find(span => span.textContent.trim() === 'Use here').closest(\"div\").click();";
                     await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanUseHereBtn);
                 }

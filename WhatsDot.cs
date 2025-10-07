@@ -89,6 +89,7 @@ namespace WhatsDotLib
                 loaderVisibility = false;
             }
 
+
             if (mainWebView.CoreWebView2 != null)
             {
 

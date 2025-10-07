@@ -91,6 +91,15 @@ namespace WhatsDotLib
 
             if (mainWebView.CoreWebView2 != null)
             {
+
+                string javaScriptSpanOK = "Array.from(document.querySelectorAll('button')).some(span => span.textContent.trim() === 'OK');";
+                if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanOK) == "true")
+                {
+                    status = "waiting";
+                    string javaScriptSpanOKBtn = "Array.from(document.querySelectorAll('button')).find(span => span.textContent.trim() === 'OK').click();";
+                    await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptSpanOKBtn);
+                }
+
                 string javaScriptUseHere = "Array.from(document.querySelectorAll('div')).some(div => div.textContent.trim() === 'Use here');";
                 if (await mainWebView.CoreWebView2.ExecuteScriptAsync(javaScriptUseHere) == "true")
                 {

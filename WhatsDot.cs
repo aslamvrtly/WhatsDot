@@ -8,6 +8,7 @@ using Timer = System.Windows.Forms.Timer;
 namespace WhatsDotLib
 {
 
+    //Version 1.1.5
 
     public class WhatsDot
     {
